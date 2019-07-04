@@ -1,0 +1,1 @@
+// this will be a file for all the config like /config/api.go in v1

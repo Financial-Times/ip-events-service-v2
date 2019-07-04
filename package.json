@@ -1,0 +1,21 @@
+{
+  "name": "ip-events-service-v2",
+  "version": "1.0.0",
+  "description": "JavaScript version of the IP Events Service",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kate Beard",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
+  }
+}
