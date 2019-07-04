@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "secret-squirrel",
+    "commitmsg": "secret-squirrel-commitmsg"
   },
   "author": "Kate Beard",
   "license": "ISC",
@@ -15,6 +17,8 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@financial-times/secret-squirrel": "^2.12.4",
+    "husky": "^3.0.0",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2"
   }
