@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   serverTests:
     docker:
-      - image: circleci/node:4.8.2
+      - image: node:9.0.0
     steps:
       - checkout
       - run: sudo npm install -g npm@latest
