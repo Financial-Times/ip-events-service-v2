@@ -15,22 +15,9 @@ test('Correct homepage response sent', function (t) {
 	  });
   });
 
-  test('No access without API key', function (t) {
-	request(app)
-	  .get('/api/hooks')
-	  .expect('Content-Type', 'application/json; charset=utf-8')
-	  .expect(401)
-	  .end(function (err, res) {
-		t.error(err, 'No error');
-		t.same(res.body, 'You need an API key, soz', 'No API key, unauthorised');
-		t.end();
-	  });
-  });
-
   test('Access granted with API key', function (t) {
 	request(app)
 	  .get('/api/hooks')
-	  .set('apikey', process.env.APIKEY)
 	  .expect('Content-Type', 'application/json; charset=utf-8')
 	  .expect(200)
 	  .end(function (err, res) {
@@ -43,7 +30,6 @@ test('Correct homepage response sent', function (t) {
   test('POST request responds as expected', function (t) {
 	request(app)
 	  .post('/api/hooks/membership')
-	  .set('apikey', process.env.APIKEY)
 	  .expect('Content-Type', 'application/json; charset=utf-8')
 	  .expect(200)
 	  .end(function (err, res) {
