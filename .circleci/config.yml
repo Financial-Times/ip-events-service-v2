@@ -6,7 +6,7 @@ jobs:
       - image: circleci/node:latest-browsers
     steps:
       - checkout
-      - run: npm install -g npm@latest
+      - run: sudo npm install -g npm@latest
       - run: npm i
       - run: npm test
 
