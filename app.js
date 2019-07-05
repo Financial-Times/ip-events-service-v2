@@ -36,6 +36,10 @@ api.post('/hooks/membership', (req, res) => {
 	console.log(uuid, req.body)
 	res.json('Ok cowboy 🤠')
 })
+api.post('/hooks/test', (req, res) => {
+	console.log(`Kafka test message received`)
+	res.json('Ok cowboy 🤠')
+})
 api.get('/consumer', (req, res) => {
 	res.json('This will be the endpoint that consumes from the message queue and sends events to different apps.')
 });
