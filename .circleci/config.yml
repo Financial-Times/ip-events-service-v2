@@ -6,7 +6,7 @@ jobs:
       - image: node:9.0.0
     steps:
       - checkout
-      - run: sudo npm install -g npm@latest
+      - run: npm install -g npm@latest
       - run: npm test
 
 workflows:
