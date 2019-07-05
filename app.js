@@ -17,15 +17,11 @@ app.get('/__gtg', (req, res) => {
 });
 // app.get('/__health', healthChecks);
 
-// everything else through s3o/whitelist
-
-// if (env !== 'test') {
-//   app.use(s3o);
-//   app.use(whitelist);
-// }
-
 const api = express.Router();
-api.use(require('./src/middleware/api-key'));
+
+if (env !== 'test') {
+	api.use(require('./src/middleware/api-key'));
+}
 
 app.get('/', (req, res) => {
 	res.json('ip events service v2: 2 events 2 furious');
