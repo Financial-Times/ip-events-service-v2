@@ -4,7 +4,6 @@ jobs:
   serverTests:
     steps:
       - checkout
-      - run: echo 'export PATH=./node_modules/.bin:$PATH' >> $BASH_ENV
       - run: npm install --unsafe-perm
       - run: npm test
 
