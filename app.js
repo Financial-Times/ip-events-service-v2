@@ -28,26 +28,26 @@ const api = express.Router();
 api.use(require('./src/middleware/api-key'));
 
 app.get('/', (req, res) => {
-	res.send('ip events service v2: 2 events 2 furious');
+	res.json('ip events service v2: 2 events 2 furious');
 });
 
 api.get('/hooks', (req, res) => {
-	res.send('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
+	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
 });
 api.post('/hooks/membership', (req, res) => {
 	const uuid = uuidv4()
 	console.log(`Kafka message received, uuid ${uuid}`)
 	console.log(uuid, req.body)
-	res.send('Ok cowboy 🤠')
+	res.json('Ok cowboy 🤠')
 })
 api.get('/consumer', (req, res) => {
-	res.send('This will be the endpoint that consumes from the message queue and sends events to different apps.')
+	res.json('This will be the endpoint that consumes from the message queue and sends events to different apps.')
 });
 api.get('/clients', (req, res) => {
-	res.send('This will be the endpoint that forwards message to clients like Keen and Spoor.')
+	res.json('This will be the endpoint that forwards message to clients like Keen and Spoor.')
 });
 api.get('/kinesis', (req, res) => {
-	res.send('This will be the endpoint that forwards message to the queue (like Kinesis or Rabbit).')
+	res.json('This will be the endpoint that forwards message to the queue (like Kinesis or Rabbit).')
 });
 
 app.use('/api', api);
