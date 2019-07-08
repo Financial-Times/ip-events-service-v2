@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
 	res.json('ip events service v2: 2 events 2 furious');
 });
 
+// receives events
 api.get('/hooks', (req, res) => {
 	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
 });
@@ -60,14 +61,10 @@ api.post('/hooks/test', (req, res) => {
 	console.log(`Kafka test message received`)
 	res.json('Ok cowboy 🤠')
 })
-api.get('/consumer', (req, res) => {
-	res.json('This will be the endpoint that consumes from the message queue and sends events to different apps.')
-});
+
+// forwards events onwards
 api.get('/clients', (req, res) => {
 	res.json('This will be the endpoint that forwards message to clients like Keen and Spoor.')
-});
-api.get('/kinesis', (req, res) => {
-	res.json('This will be the endpoint that forwards message to the queue (like Kinesis or Rabbit).')
 });
 
 app.use('/api', api);
