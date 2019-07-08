@@ -34,7 +34,7 @@ test('Correct homepage response sent', function (t) {
 	  .expect(200)
 	  .end(function (err, res) {
 		t.error(err, 'No error');
-		t.same(res.body, 'Ok cowboy 🤠', 'Successful POST request');
+		t.same(res.body, 'Message type not accepted yet', 'Successful POST request');
 		t.end();
 	  });
   });
