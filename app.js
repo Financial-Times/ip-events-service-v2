@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
 const logger = require('@financial-times/n-logger').default;
 
+// controllers
+const hooks = require('./src/controllers/hooks')
+
 // app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -38,18 +41,7 @@ app.get('/', (req, res) => {
 api.get('/hooks', (req, res) => {
 	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
 });
-api.post('/hooks/membership', (req, res) => {
-	const uuid = uuidv4()
-	const reqData = {
-		uuid: uuid,
-		url: req.url,
-		method: req.method,
-		body: req.body,
-		headers: req.headers
-	}
-	logger.info({ event: 'KAFKA_DATA_RECEIVED', data: reqData})
-	res.json('Ok cowboy 🤠')
-})
+api.post('/hooks/membership', hooks.formatMembership)
 api.post('/hooks/test', (req, res) => {
 	const reqData = {
 		url: req.url,
