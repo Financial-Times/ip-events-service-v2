@@ -37,7 +37,7 @@ const formatMembership = async (req, res) => {
 				source: "internal-products"
 			}
 		}
-		logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', uuid: uuid, formattedEvent: formattedEvent})
+		logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
 		console.log(formattedEvent)
 		return res.json(formattedEvent)
 	}
