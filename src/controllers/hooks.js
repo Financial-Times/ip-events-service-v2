@@ -37,7 +37,7 @@ const formatMembership = async (req, res) => {
 				source: "internal-products"
 			}
 		}
-		logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', uuid: uuid, formattedEvent: formattedEvent})
+		logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
 		console.log(formattedEvent)
 		return res.json(formattedEvent)
 	}
@@ -45,7 +45,7 @@ const formatMembership = async (req, res) => {
 };
 
 function removeUndefined(obj) {
-	Object.keys(obj).forEach(key => obj[key] === undefined || null ? delete obj[key] : '')
+	Object.keys(obj).forEach(key => obj[key] === undefined || obj[key] === null ? delete obj[key] : '')
 	return obj
 }
 
