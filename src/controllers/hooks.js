@@ -45,7 +45,7 @@ const formatMembership = async (req, res) => {
 };
 
 function removeUndefined(obj) {
-	Object.keys(obj).forEach(key => obj[key] === undefined || null ? delete obj[key] : '')
+	Object.keys(obj).forEach(key => obj[key] === undefined || obj[key] === null ? delete obj[key] : '')
 	return obj
 }
 
