@@ -1,39 +1,52 @@
 const logger = require('@financial-times/n-logger').default;
 const uuidv4 = require('uuid/v4');
+const selectn = require('selectn');
 
 const formatMembership = async (req, res) => {
-    try {
-		if (req.body.MessageType === 'SubscriptionPurchased') {
-			const {
-				invoiceId,
-				invoiceNumber,
-				offerId,
-				paymentType,
-				productRatePlanId,
-				subscriptionId,
-				subscriptionNumber,
-				userId
-			} = req.body.body.subscription
-			const struct = {
-				invoiceId,
-				invoiceNumber,
-				messageId: req.body.MessageID,
-				messageType: req.body.MessageType,
-				offerId,
-				paymentType,
-				productRatePlanId,
-				subscriptionId,
-				subscriptionNumber,
-				timestamp: req.body.MessageTimestamp,
-				userId
-			}
-			console.log(struct)
-			return res.json(struct)
+	const uuid = uuidv4()
+	const baseEvent = req.body
+	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', uuid: uuid, body: baseEvent})
+	if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
+		const uuid = selectn('body.subscription.userId', baseEvent)
+		const context = {
+			messageId: selectn('MessageID', baseEvent),
+			timestamp: selectn('MessageTimestamp', baseEvent),
+			messageType: selectn('MessageType', baseEvent),
+			invoiceId: selectn('body.subscription.invoiceId', baseEvent),
+			invoiceNumber: selectn('body.subscription.invoiceNumber', baseEvent),
+			offerId: selectn('body.subscription.offerId', baseEvent),
+			paymentType: selectn('body.subscription.paymentType', baseEvent),
+			productRatePlanId: selectn('body.subscription.productRatePlanId', baseEvent),
+			subscriptionId: selectn('body.subscription.subscriptionId', baseEvent),
+			subscriptionNumber: selectn('body.subscription.subscriptionNumber', baseEvent),
+			segmentId: selectn('body.subscription.segmentId', baseEvent),
+			userId: uuid,
+			cancellationReason: selectn('body.subscription.cancellationReason', baseEvent)
 		}
-		return res.json('Message type not accepted yet')
-    } catch(error) {
-		logger.error({ event: 'FORMAT_ERROR', error });
-    }
+		removeUndefined(context)
+		const user = {
+			ft_guid: uuid,
+			uuid: uuid
+		}
+		const formattedEvent = {
+			user: user,
+			context: context,
+			category: "membership",
+			action: "change",
+			system: {
+				source: "internal-products"
+			}
+		}
+		logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', uuid: uuid, formattedEvent: formattedEvent})
+		console.log(formattedEvent)
+		return res.json(formattedEvent)
+	}
+	return res.json('wrong event')
 };
+
+function removeUndefined(obj) {
+	Object.keys(obj).forEach(key => obj[key] === undefined || null ? delete obj[key] : '')
+	return obj
+}
 
 module.exports = { formatMembership };
