@@ -21,11 +21,7 @@ app.get('/__gtg', (req, res) => {
 });
 // app.get('/__health', healthChecks);
 
-const api = express.Router();
-
-if (env !== 'test') {
-	api.use(require('./src/middleware/api-key'));
-}
+// const app = express.Router();
 
 app.get('/', (req, res) => {
 	const reqData = {
@@ -37,12 +33,16 @@ app.get('/', (req, res) => {
 	res.json('ip events service v2: 2 events 2 furious');
 });
 
+if (env !== 'test') {
+	app.use(require('./src/middleware/api-key'));
+}
+
 // receives events
-api.get('/hooks', (req, res) => {
+app.get('/hooks', (req, res) => {
 	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
 });
-api.post('/hooks/membership', hooks.formatMembership)
-api.post('/hooks/test', (req, res) => {
+app.post('/hooks/membership', hooks.formatMembership)
+app.post('/hooks/test', (req, res) => {
 	const reqData = {
 		url: req.url,
 		method: req.method,
@@ -55,10 +55,10 @@ api.post('/hooks/test', (req, res) => {
 })
 
 // forwards events onwards
-api.get('/clients', (req, res) => {
+app.get('/clients', (req, res) => {
 	res.json('This will be the endpoint that forwards message to clients like Keen and Spoor.')
 });
 
-app.use('/api', api);
+// app.use('/api', api);
 
 module.exports = app;
