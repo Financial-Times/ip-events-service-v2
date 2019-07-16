@@ -5,8 +5,11 @@ const selectn = require('selectn');
 const formatMembership = async (req, res) => {
 	// const uuid = uuidv4()
 	const baseEvent = req.body
-	console.log(baseEvent)
+	console.log(JSON.parse(baseEvent.messages[0].body))
 	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
+	if (baseEvent.messageType === 'UserCreated') {
+		console.log('User created')
+	}
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
 		const uuid = selectn('body.subscription.userId', baseEvent)
 		const context = {
