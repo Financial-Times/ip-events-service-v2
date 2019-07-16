@@ -3,10 +3,11 @@ const uuidv4 = require('uuid/v4');
 const selectn = require('selectn');
 
 const formatMembership = async (req, res) => {
-	const uuid = uuidv4()
+	// const uuid = uuidv4()
 	const baseEvent = req.body
-	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', uuid: uuid, body: baseEvent})
-	if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
+	console.log(baseEvent)
+	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
+	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
 		const uuid = selectn('body.subscription.userId', baseEvent)
 		const context = {
 			messageId: selectn('MessageID', baseEvent),
@@ -40,8 +41,8 @@ const formatMembership = async (req, res) => {
 		logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
 		console.log(formattedEvent)
 		return res.json(formattedEvent)
-	}
-	return res.json('wrong event')
+	// }
+	// return res.json('wrong event')
 };
 
 function removeUndefined(obj) {

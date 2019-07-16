@@ -21,8 +21,6 @@ app.get('/__gtg', (req, res) => {
 });
 // app.get('/__health', healthChecks);
 
-// const app = express.Router();
-
 app.get('/', (req, res) => {
 	const reqData = {
 		url: req.url,
@@ -43,14 +41,14 @@ app.get('/hooks', (req, res) => {
 });
 app.post('/hooks/membership', hooks.formatMembership)
 app.post('/hooks/test', (req, res) => {
-	const reqData = {
-		url: req.url,
-		method: req.method,
-		body: req.body,
-		headers: req.headers
-	}
-	logger.info({ event: 'KAFKA_TEST_DATA_RECEIVED', data: reqData})
-	console.log(`Kafka test message received`)
+	// const reqData = {
+	// 	url: req.url,
+	// 	method: req.method,
+	// 	body: req.body,
+	// 	headers: req.headers
+	// }
+	// logger.info({ event: 'KAFKA_TEST_DATA_RECEIVED', data: reqData})
+	// console.log(`Kafka test message received`)
 	res.json('Ok cowboy 🤠')
 })
 
@@ -58,7 +56,5 @@ app.post('/hooks/test', (req, res) => {
 app.get('/clients', (req, res) => {
 	res.json('This will be the endpoint that forwards message to clients like Keen and Spoor.')
 });
-
-// app.use('/api', api);
 
 module.exports = app;
