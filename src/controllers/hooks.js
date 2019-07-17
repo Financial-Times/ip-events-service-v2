@@ -5,8 +5,10 @@ const selectn = require('selectn');
 const formatMembership = async (req, res) => {
 	const reqUUID = uuidv4()
 	const baseEvent = req.body
+	console.log(baseEvent)
 	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
 	baseEvent.messages.forEach((message) => {
+		console.log(message)
 		if (selectn('messageType', message) === "SubscriptionPurchased" || "SubscriptionCancellationRequestReceived") {
 			const msgUUID = uuidv4()
 			logger.info({ event: "SUB_EVENT_UNFORMATTED", request: reqUUID, message: msgUUID, messageType: message.messageType, unformattedEvent: message })
