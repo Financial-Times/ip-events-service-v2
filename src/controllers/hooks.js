@@ -9,24 +9,25 @@ const formatMembership = async (req, res) => {
 	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
 	baseEvent.messages.forEach((message) => {
 		console.log(message)
-		if (selectn('messageType', message) === "SubscriptionPurchased" || "SubscriptionCancellationRequestReceived") {
+		if (message.messageType === "SubscriptionPurchased" || message.messageType === "SubscriptionCancellationRequestReceived") {
 			const msgUUID = uuidv4()
 			logger.info({ event: "SUB_EVENT_UNFORMATTED", request: reqUUID, message: msgUUID, messageType: message.messageType, unformattedEvent: message })
-			const ftUUID = selectn('body.subscription.userId', message)
+			const messageBody = JSON.parse(message.body)
+			const ftUUID = selectn('subscription.userId', messageBody)
 			const context = {
 				messageId: selectn('messageId', message),
 				timestamp: selectn('messageTimestamp', message),
 				messageType: selectn('messageType', message),
-				invoiceId: selectn('body.subscription.invoiceId', message),
-				invoiceNumber: selectn('body.subscription.invoiceNumber', message),
-				offerId: selectn('body.subscription.offerId', message),
-				paymentType: selectn('body.subscription.paymentType', message),
-				productRatePlanId: selectn('body.subscription.productRatePlanId', message),
-				subscriptionId: selectn('body.subscription.subscriptionId', message),
-				subscriptionNumber: selectn('body.subscription.subscriptionNumber', message),
-				segmentId: selectn('body.subscription.segmentId', message),
+				invoiceId: selectn('subscription.invoiceId', messageBody),
+				invoiceNumber: selectn('subscription.invoiceNumber', messageBody),
+				offerId: selectn('subscription.offerId', messageBody),
+				paymentType: selectn('subscription.paymentType', messageBody),
+				productRatePlanId: selectn('subscription.productRatePlanId', messageBody),
+				subscriptionId: selectn('subscription.subscriptionId', messageBody),
+				subscriptionNumber: selectn('subscription.subscriptionNumber', messageBody),
+				segmentId: selectn('subscription.segmentId', messageBody),
 				userId: ftUUID,
-				cancellationReason: selectn('body.subscription.cancellationReason', message)
+				cancellationReason: selectn('subscription.cancellationReason', messageBody)
 			}
 			removeUndefined(context)
 			const user = {
@@ -44,8 +45,9 @@ const formatMembership = async (req, res) => {
 			}
 			logger.info({ event: "SUB_EVENT_FORMATTED", request: reqUUID, message: msgUUID, formattedEvent: formattedEvent })
 			console.log('formatted event', formattedEvent)
+		} else {
+			console.log('non-sub event', message.messageType)
 		}
-		console.log('non-sub event', message.messageType, message.body)
 	});
 	return res.json('ok')
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
