@@ -13,6 +13,7 @@ const formatMembership = async (req, res) => {
 			const msgUUID = uuidv4()
 			logger.info({ event: "SUB_EVENT_UNFORMATTED", request: reqUUID, message: msgUUID, messageType: message.messageType, unformattedEvent: message })
 			const messageBody = JSON.parse(message.body)
+			console.log(messageBody)
 			const ftUUID = selectn('subscription.userId', messageBody)
 			const context = {
 				messageId: selectn('messageId', message),
