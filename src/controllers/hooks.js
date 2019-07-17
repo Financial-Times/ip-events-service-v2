@@ -43,6 +43,7 @@ const formatMembership = async (req, res) => {
 			logger.info({ event: "SUB_EVENT_FORMATTED", request: reqUUID, message: msgUUID, formattedEvent: formattedEvent })
 			console.log('formatted event', formattedEvent)
 		}
+		console.log('non-sub event', message.messageType, message.body)
 	});
 	return res.json('ok')
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
