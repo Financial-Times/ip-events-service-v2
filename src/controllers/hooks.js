@@ -3,15 +3,47 @@ const uuidv4 = require('uuid/v4');
 const selectn = require('selectn');
 
 const formatMembership = async (req, res) => {
-	const uuid = uuidv4()
+	const reqUUID = uuidv4()
 	const baseEvent = req.body
-	//logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
+	logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
 	baseEvent.messages.forEach((message) => {
-		if (!message.messageType === 'UserCreated') {
-			console.log('user created')
+		if (selectn('messageType', message) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
+			const msgUUID = uuidv4()
+			console.log({ request: reqUUID, message: msgUUID, messageType: message.messageType, unformattedEvent: JSON.parse(message.body) })
+
+			const ftUUID = selectn('subscription.userId', message)
+			const context = {
+				messageId: selectn('messageId', message),
+				timestamp: selectn('messageTimestamp', message),
+				messageType: selectn('messageType', message),
+				invoiceId: selectn('subscription.invoiceId', message),
+				invoiceNumber: selectn('subscription.invoiceNumber', message),
+				offerId: selectn('subscription.offerId', message),
+				paymentType: selectn('subscription.paymentType', message),
+				productRatePlanId: selectn('subscription.productRatePlanId', message),
+				subscriptionId: selectn('subscription.subscriptionId', message),
+				subscriptionNumber: selectn('subscription.subscriptionNumber', message),
+				segmentId: selectn('subscription.segmentId', message),
+				userId: ftUUID,
+				cancellationReason: selectn('subscription.cancellationReason', message)
+			}
+			removeUndefined(context)
+			const user = {
+				ft_guid: ftUUID,
+				uuid: ftUUID
+			}
+			const formattedEvent = {
+				user: user,
+				context: context,
+				category: "membership",
+				action: "change",
+				system: {
+					source: "internal-products"
+				}
+			}
+			//logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
+			console.log({ formattedEvent: formattedEvent })
 		}
-		console.log(uuid, JSON.parse(message.body))
-		console.log(uuid, message.messageType)
 	});
 	return res.json('ok')
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
