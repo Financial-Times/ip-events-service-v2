@@ -6,12 +6,14 @@ const formatMembership = async (req, res) => {
 	const uuid = uuidv4()
 	const baseEvent = req.body
 	//logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
-	if (baseEvent.messages[0].messageType === 'UserCreated') {
-		console.log('user created')
-		return res.json('ok')
-	}
-	console.log(uuid, JSON.parse(baseEvent.messages[0].body))
-	console.log(uuid, baseEvent.messages[0].messageType)
+	baseEvent.messages.forEach((message) => {
+		if (message.messageType === 'UserCreated') {
+			console.log('user created')
+		}
+		console.log(uuid, JSON.parse(message.body))
+		console.log(uuid, message.messageType)
+	});
+	return res.json('ok')
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
 		// const uuid = selectn('body.subscription.userId', baseEvent)
 		// const context = {
@@ -46,7 +48,7 @@ const formatMembership = async (req, res) => {
 		// logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
 		// console.log(formattedEvent)
 		// return res.json(formattedEvent)
-		return res.json('ok')
+		//return res.json('ok')
 	// }
 	// return res.json('wrong event')
 };
