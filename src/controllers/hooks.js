@@ -8,10 +8,10 @@ const formatMembership = async (req, res) => {
 	//logger.info({ event: 'MEMBERSHIP_DATA_RECEIVED', body: baseEvent})
 	baseEvent.messages.forEach((message) => {
 		if (!message.messageType === 'UserCreated') {
-			console.log(uuid, JSON.parse(message.body))
-			console.log(uuid, message.messageType)
+			console.log('user created')
 		}
-		console.log('user created')
+		console.log(uuid, JSON.parse(message.body))
+		console.log(uuid, message.messageType)
 	});
 	return res.json('ok')
 	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
