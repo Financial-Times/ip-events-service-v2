@@ -39,7 +39,8 @@ if (env !== 'test') {
 app.get('/hooks', (req, res) => {
 	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
 });
-app.post('/hooks/membership', hooks.formatMembership)
+app.post('/hooks/membership', hooks.formatMembership);
+app.post('/hooks/user-preferences', hooks.formatUserPreferences);
 app.post('/hooks/test', (req, res) => {
 	// const reqData = {
 	// 	url: req.url,
