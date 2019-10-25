@@ -146,6 +146,33 @@ const formatUserPreferences = async (req, res) => {
 	logger.info({ event: 'USER_PREFS_DATA_RECEIVED', body: baseEvent})
 	baseEvent.messages.forEach((message) => {
 		console.log(message)
+		if (message.messageType === "UserProductsChanged") {
+			const messageBody = JSON.parse(message.body)
+			const ftUUID = selectn('userProductsChanged.user.userId', messageBody)
+			const context = {
+				messageId: selectn('messageId', message),
+				timestamp: selectn('messageTimestamp', message),
+				messageType: selectn('messageType', message),
+				products: selectn('userProductsChanged.user.products', messageBody),
+				userId: ftUUID
+			}
+			removeUndefined(context)
+			const user = {
+				ft_guid: ftUUID,
+				uuid: ftUUID
+			}
+			const formattedEvent = {
+				user: user,
+				context: context,
+				category: "membership",
+				action: "change",
+				system: {
+					source: "internal-products"
+				}
+			}
+			logger.info({ event: "PAYMENT_EVENT_FORMATTED", request: reqUUID, message: msgUUID, formattedEvent: formattedEvent })
+			console.log('formatted event', formattedEvent)
+		}
 	});
 	return res.json('ok')
 };
@@ -155,4 +182,4 @@ function removeUndefined(obj) {
 	return obj
 }
 
-module.exports = { formatMembership, formatSeat, formatPayment };
+module.exports = { formatMembership, formatSeat, formatPayment, formatUserPreferences };
