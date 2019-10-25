@@ -50,43 +50,104 @@ const formatMembership = async (req, res) => {
 		}
 	});
 	return res.json('ok')
-	// if (selectn('MessageType', baseEvent) === "SubscriptionPurchased" || "SubscriptionCancelRequestProcessed") {
-		// const uuid = selectn('body.subscription.userId', baseEvent)
-		// const context = {
-		// 	messageId: selectn('MessageID', baseEvent),
-		// 	timestamp: selectn('MessageTimestamp', baseEvent),
-		// 	messageType: selectn('MessageType', baseEvent),
-		// 	invoiceId: selectn('body.subscription.invoiceId', baseEvent),
-		// 	invoiceNumber: selectn('body.subscription.invoiceNumber', baseEvent),
-		// 	offerId: selectn('body.subscription.offerId', baseEvent),
-		// 	paymentType: selectn('body.subscription.paymentType', baseEvent),
-		// 	productRatePlanId: selectn('body.subscription.productRatePlanId', baseEvent),
-		// 	subscriptionId: selectn('body.subscription.subscriptionId', baseEvent),
-		// 	subscriptionNumber: selectn('body.subscription.subscriptionNumber', baseEvent),
-		// 	segmentId: selectn('body.subscription.segmentId', baseEvent),
-		// 	userId: uuid,
-		// 	cancellationReason: selectn('body.subscription.cancellationReason', baseEvent)
-		// }
-		// removeUndefined(context)
-		// const user = {
-		// 	ft_guid: uuid,
-		// 	uuid: uuid
-		// }
-		// const formattedEvent = {
-		// 	user: user,
-		// 	context: context,
-		// 	category: "membership",
-		// 	action: "change",
-		// 	system: {
-		// 		source: "internal-products"
-		// 	}
-		// }
-		// logger.info({ event: 'MEMBERSHIP_DATA_FORMATTED', uuid: uuid, formattedEvent: formattedEvent})
-		// console.log(formattedEvent)
-		// return res.json(formattedEvent)
-		//return res.json('ok')
-	// }
-	// return res.json('wrong event')
+};
+
+const formatSeat = async (req, res) => {
+	const reqUUID = uuidv4()
+	const baseEvent = req.body
+	console.log(baseEvent)
+	baseEvent.messages.forEach((message) => {
+		console.log(message)
+		if (message.messageType === "LicenceSeatAllocated" || message.messageType === "LicenceSeatDeallocated") {
+			const msgUUID = uuidv4()
+			const messageBody = JSON.parse(message.body)
+			const ftUUID = selectn('licenceSeatAllocated.userId', messageBody)
+			const context = {
+				messageId: selectn('messageId', message),
+				timestamp: selectn('messageTimestamp', message),
+				messageType: selectn('messageType', message),
+				licenceId: selectn('licenceSeatAllocated.licenceId', messageBody),
+				userId: ftUUID
+			}
+			removeUndefined(context)
+			const user = {
+				ft_guid: ftUUID,
+				uuid: ftUUID
+			}
+			const formattedEvent = {
+				user: user,
+				context: context,
+				category: "membership",
+				action: "change",
+				system: {
+					source: "internal-products"
+				}
+			}
+			logger.info({ event: "LICENCE_EVENT_FORMATTED", request: reqUUID, message: msgUUID, formattedEvent: formattedEvent })
+			console.log('formatted event', formattedEvent)
+		} else {
+			console.log('non-sub event', message.messageType)
+		}
+	});
+	return res.json('ok')
+};
+
+const formatPayment = async (req, res) => {
+	const reqUUID = uuidv4()
+	const baseEvent = req.body
+	console.log(baseEvent)
+	baseEvent.messages.forEach((message) => {
+		console.log(message)
+		if (message.messageType === "SubscriptionPaymentSuccess" || message.messageType === "SubscriptionPaymentFailure") {
+			const msgUUID = uuidv4()
+			const messageBody = JSON.parse(message.body)
+			const ftUUID = selectn('account.userId', messageBody)
+			const context = {
+				messageId: selectn('messageId', message),
+				timestamp: selectn('messageTimestamp', message),
+				messageType: selectn('messageType', message),
+				payment: {
+					id: selectn('payment.id', messageBody),
+					type: selectn('payment.type', messageBody)
+				},
+				account: {
+					id: selectn('account.id', messageBody),
+					name: selectn('account.name', messageBody),
+					userId: ftUUID
+				}
+			}
+			removeUndefined(context)
+			const user = {
+				ft_guid: ftUUID,
+				uuid: ftUUID
+			}
+			const formattedEvent = {
+				user: user,
+				context: context,
+				category: "membership",
+				action: "change",
+				system: {
+					source: "internal-products"
+				}
+			}
+			logger.info({ event: "PAYMENT_EVENT_FORMATTED", request: reqUUID, message: msgUUID, formattedEvent: formattedEvent })
+			console.log('formatted event', formattedEvent)
+		} else {
+			console.log('non-sub event', message.messageType)
+		}
+	});
+	return res.json('ok')
+};
+
+const formatUserPreferences = async (req, res) => {
+	const reqUUID = uuidv4()
+	const baseEvent = req.body
+	console.log(baseEvent)
+	logger.info({ event: 'USER_PREFS_DATA_RECEIVED', body: baseEvent})
+	baseEvent.messages.forEach((message) => {
+		console.log(message)
+	});
+	return res.json('ok')
 };
 
 function removeUndefined(obj) {
@@ -94,4 +155,4 @@ function removeUndefined(obj) {
 	return obj
 }
 
-module.exports = { formatMembership };
+module.exports = { formatMembership, formatSeat, formatPayment };
