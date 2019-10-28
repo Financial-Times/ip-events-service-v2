@@ -8,7 +8,9 @@ const uuidv4 = require('uuid/v4');
 const logger = require('@financial-times/n-logger').default;
 
 // controllers
-const hooks = require('./src/controllers/hooks')
+const incoming =require('./src/controllers/incoming')
+const format = require('./src/controllers/format')
+const clients = require('./src/controllers/clients')
 
 // app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,26 +38,33 @@ if (env !== 'test') {
 }
 
 // receives events
-app.get('/hooks', (req, res) => {
-	res.json('The hooks endpoints will listen for events from services like the membership and user-preferences apis, and publish formatted events to the queue for consumption.');
+app.get('/incoming', (req, res) => {
+	res.json('The hooks endpoints will listen for events from services like the membership API.');
 });
-app.post('/hooks/membership', hooks.formatMembership);
-app.post('/hooks/user-preferences', hooks.formatUserPreferences);
-app.post('/hooks/test', (req, res) => {
-	// const reqData = {
-	// 	url: req.url,
-	// 	method: req.method,
-	// 	body: req.body,
-	// 	headers: req.headers
-	// }
-	// logger.info({ event: 'KAFKA_TEST_DATA_RECEIVED', data: reqData})
-	// console.log(`Kafka test message received`)
-	res.json('Ok cowboy 🤠')
-})
+app.post('/incoming', incoming);
+
+// formats events
+app.get('/incoming', (req, res) => {
+	res.json('The hooks endpoints will listen for events from services like the membership API.');
+});
+app.post('/format', format);
 
 // forwards events onwards
 app.get('/clients', (req, res) => {
 	res.json('This will be the endpoint that forwards message to clients like Keen and Spoor.')
 });
+app.post('/clients/spoor', clients.spoor);
+
+// app.post('/hooks/test', (req, res) => {
+// 	// const reqData = {
+// 	// 	url: req.url,
+// 	// 	method: req.method,
+// 	// 	body: req.body,
+// 	// 	headers: req.headers
+// 	// }
+// 	// logger.info({ event: 'KAFKA_TEST_DATA_RECEIVED', data: reqData})
+// 	// console.log(`Kafka test message received`)
+// 	res.json('Ok cowboy 🤠')
+// })
 
 module.exports = app;
