@@ -1,0 +1,15 @@
+{ 
+	"topic": "membership_users_v1", 
+	"messages": [ 
+		{"contentType": "application/json", 
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec", 
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000", 
+			"messageType": "SubscriptionPurchased", 
+			"correlationId": null, 
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api", 
+			"originHostLocation": "w1b", 
+			"originHost": "ip-10-170-47-158", 
+			"body": "{\"subscription\":{\"subscriptionCreationDate\":\"2019-07-17T12:20:30.056Z\",\"subscriptionEffectiveDate\":\"2019-07-27T00:00:00.000Z\",\"paymentMethodId\":\"2c92a00c6bff1820016bffe071326413\",\"paymentType\":\"CREDITCARD\",\"userId\":\"51fe3d0f-9cd5-40a4-a50a-c990a0c8556e\",\"offerId\":\"3d490a27-44aa-ee62-e22e-d1dd2c07f5ef\",\"offerName\":\"Print FTWE Newspaper - Weekend Only - RRP\",\"product\":{\"id\":null,\"name\":\"Newspaper - Weekend Only\",\"type\":\"Print\",\"code\":\"NWE\",\"products\":[\"NWE\"]},\"subscriptionOption\":{\"currency\":\"GBP\",\"ratePlanId\":\"2c92a0ff5fe284d2015fe2ed9c4577b4\",\"creditChargeId\":\"2c92a0ff5fe284d2015fe2ed9c8177c0\",\"option\":\"HD\",\"total\":{\"currency\":\"GBP\",\"value\":\"37.70\",\"symbol\":\"£\",\"nativeSymbol\":\"£\"},\"charges\":[{\"subscriptionTerm\":\"P3M\",\"id\":\"2c92a0ff5fe284d2015fe2ed9c5d77b6\",\"name\":\"Newspaper - Weekend Only Quarterly\",\"basis\":\"RECURRING\",\"amount\":{\"currency\":\"GBP\",\"value\":\"37.70\",\"symbol\":\"£\",\"nativeSymbol\":\"£\"},\"type\":\"Print\",\"productCode\":\"NWE\",\"subscriptionName\":\"P3M\"}],\"subscriptionTerm\":\"P3M\"},\"segmentId\":null,\"productRatePlanId\":\"2c92a0ff5fe284d2015fe2ed9c4577b4\",\"subscriptionId\":\"2c92a00c6bff181b016bffe07d281864\",\"subscriptionNumber\":\"A-S7ULGQMS5V6\",\"invoiceId\":\"2c92a00c6bff181b016bffe07e441878\",\"invoiceNumber\":\"INV04931395\",\"paymentId\":\"2c92a00c6bff181b016bffe07eb31880\",\"deliveryAddress\":{\"address1\":\"Flat 48\",\"address2\":\"Silsoe House\",\"address3\":\"50 Park Village East\",\"city\":\"London\",\"county\":\"London\",\"postCode\":\"NW1 7QH\",\"countryCode\":\"GBR\",\"state\":null,\"notes\":null,\"secureNotes\":null}}}"
+			}
+		]
+}

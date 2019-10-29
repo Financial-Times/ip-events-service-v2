@@ -1,0 +1,49 @@
+{
+	"topic": "membership_users_v1",
+	"messages": [
+		{
+			"contentType": "application/json",
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec",
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000",
+			"messageType": "SubscriptionPurchased",
+			"correlationId": null,
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api",
+			"originHostLocation": "w1b",
+			"originHost": "ip-10-170-47-158",
+			"body": "{\"subscription\":{\"subscriptionCreationDate\":\"2019-07-17T12:20:30.056Z\",\"subscriptionEffectiveDate\":\"2019-07-27T00:00:00.000Z\",\"paymentMethodId\":\"2c92a00c6bff1820016bffe071326413\",\"paymentType\":\"CREDITCARD\",\"userId\":\"51fe3d0f-9cd5-40a4-a50a-c990a0c8556e\",\"offerId\":\"3d490a27-44aa-ee62-e22e-d1dd2c07f5ef\",\"offerName\":\"Print FTWE Newspaper - Weekend Only - RRP\",\"product\":{\"id\":null,\"name\":\"Newspaper - Weekend Only\",\"type\":\"Print\",\"code\":\"NWE\",\"products\":[\"NWE\"]},\"subscriptionOption\":{\"currency\":\"GBP\",\"ratePlanId\":\"2c92a0ff5fe284d2015fe2ed9c4577b4\",\"creditChargeId\":\"2c92a0ff5fe284d2015fe2ed9c8177c0\",\"option\":\"HD\",\"total\":{\"currency\":\"GBP\",\"value\":\"37.70\",\"symbol\":\"£\",\"nativeSymbol\":\"£\"},\"charges\":[{\"subscriptionTerm\":\"P3M\",\"id\":\"2c92a0ff5fe284d2015fe2ed9c5d77b6\",\"name\":\"Newspaper - Weekend Only Quarterly\",\"basis\":\"RECURRING\",\"amount\":{\"currency\":\"GBP\",\"value\":\"37.70\",\"symbol\":\"£\",\"nativeSymbol\":\"£\"},\"type\":\"Print\",\"productCode\":\"NWE\",\"subscriptionName\":\"P3M\"}],\"subscriptionTerm\":\"P3M\"},\"segmentId\":null,\"productRatePlanId\":\"2c92a0ff5fe284d2015fe2ed9c4577b4\",\"subscriptionId\":\"2c92a00c6bff181b016bffe07d281864\",\"subscriptionNumber\":\"A-S7ULGQMS5V6\",\"invoiceId\":\"2c92a00c6bff181b016bffe07e441878\",\"invoiceNumber\":\"INV04931395\",\"paymentId\":\"2c92a00c6bff181b016bffe07eb31880\",\"deliveryAddress\":{\"address1\":\"Flat 48\",\"address2\":\"Silsoe House\",\"address3\":\"50 Park Village East\",\"city\":\"London\",\"county\":\"London\",\"postCode\":\"NW1 7QH\",\"countryCode\":\"GBR\",\"state\":null,\"notes\":null,\"secureNotes\":null}}}"
+		},
+		{
+			"contentType": "application/json",
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec",
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000",
+			"messageType": "UserProductsChanged",
+			"correlationId": null,
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api",
+			"originHostLocation": "w1b",
+			"originHost": "ip-10-170-47-158",
+			"body": "{\"userProductsChanged\":{\"user\":{\"userId\":\"455c94a8-8103-4247-a383-649b32685bd5\",\"products\":[{\"productCode\":\"Tools\"},{\"productCode\":\"P0\"},{\"productCode\":\"P1\"}]}}}"
+		},
+		{
+			"contentType": "application/json",
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec",
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000",
+			"messageType": "LicenceSeatAllocated",
+			"correlationId": null,
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api",
+			"originHostLocation": "w1b",
+			"originHost": "ip-10-170-47-158",
+			"body": "{\"licenceSeatAllocated\":{\"licenceId\":\"0b209d65-b058-4283-a4d8-237c7f7a86c7\",\"userId\":\"919e076e-8d4d-4ca1-9813-51e7c85ab465\",\"joinedDate\":\"2019-10-24T15:58:31.710Z\",\"seatExpiryDate\":null}}"
+		},
+		{
+			"contentType": "application/json",
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec",
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000",
+			"messageType": "SubscriptionPaymentSuccess",
+			"correlationId": null,
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api",
+			"originHostLocation": "w1b",
+			"originHost": "ip-10-170-47-158",
+			"body": "{\"account\":{\"id\":\"2c92a00c6dfd2579016dfe8707822cb6\",\"userId\":\"e840d9c7-7c35-4bae-9bd4-ee75723f0758\",\"name\":\"e840d9c7-7c35-4bae-9bd4-ee75723f0758-Individual\",\"defaultPaymentMethodId\":null},\"payment\":{\"id\":\"2c92a00c6dfd2579016dfe8708f82cd1\",\"type\":\"CreditCard\"}}"
+		}
+	]
+}

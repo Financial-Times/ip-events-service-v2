@@ -1,0 +1,16 @@
+{
+	"topic": "membership_users_v1",
+	"messages": [
+		{
+			"contentType": "application/json",
+			"messageId": "1b600286-abd2-457b-b8e6-c599515e36ec",
+			"messageTimestamp": "2019-07-17T12:20:33.428+0000",
+			"messageType": "LicenceSeatAllocated",
+			"correlationId": null,
+			"originSystemId": "http://cmdb.ft.com/systems/subscription-api",
+			"originHostLocation": "w1b",
+			"originHost": "ip-10-170-47-158",
+			"body": "{\"licenceSeatAllocated\":{\"licenceId\":\"0b209d65-b058-4283-a4d8-237c7f7a86c7\",\"userId\":\"919e076e-8d4d-4ca1-9813-51e7c85ab465\",\"joinedDate\":\"2019-10-24T15:58:31.710Z\",\"seatExpiryDate\":null}"
+		}
+	]
+}
