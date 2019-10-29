@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon server.js NODE_ENV=dev SPOOR_HOST=http://0.0.0.0:1313/spoor",
     "test": "NODE_ENV=test node test/index.js | tap-spec",
     "precommit": "secret-squirrel",
     "commitmsg": "secret-squirrel-commitmsg"
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@financial-times/secret-squirrel": "^2.12.4",
     "husky": "^3.0.0",
-    "nodemon": "^1.19.1",
+    "nodemon": "^1.19.4",
     "supertest": "^4.0.2",
     "tap-spec": "^5.0.0",
     "tape": "^4.11.0"
